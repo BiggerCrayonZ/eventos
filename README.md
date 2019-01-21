@@ -1,2 +1,2 @@
 # eventos
-Administrador e Eventos -- Actividad
+Administrador de Eventos -- Actividad
