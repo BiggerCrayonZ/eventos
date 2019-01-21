@@ -35,6 +35,11 @@
     grid-template-rows: 30% 70%;
 }
 
+.event_header_card{
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
 .details_grid{
     display: grid;
     grid-template-rows: 16% 84%;
@@ -74,8 +79,18 @@
 
 .guest_list{
     height: 100%;
-    overflow-y: auto;
+    display: grid;
+    grid-template-rows: 10% 90%;
     text-align: center;
+}
+
+.guest_list_container{
+    height: 100%;
+    overflow-y: auto;
+}
+
+.guest_list_container > div {
+    margin-bottom: 0.5em;
 }
 
 .guest_card{

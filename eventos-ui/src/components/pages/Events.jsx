@@ -4,14 +4,17 @@ import './Events.css';
 import {
     Card, CardImg, CardText, CardBody, CardLink,
     CardTitle, CardSubtitle, CardHeader, CardFooter, Button,
-    InputGroup, InputGroupText, InputGroupAddon, Input
+    InputGroup, InputGroupText, InputGroupAddon, Input,
+    Modal, ModalHeader, ModalBody, ModalFooter,
+    Form, FormGroup, Label, Col, Row,
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Events extends Component {
     state = {
         currentUserName: '',
-        currentUserMail: ''
+        currentUserMail: '',
+        modalCreateEvent: false
     }
 
     componentDidMount() {
@@ -22,16 +25,65 @@ class Events extends Component {
         });
     }
 
+    toggleModalCreateEvent = () => {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
+
     render() {
         const { currentUserMail, currentUserName } = this.state;
         return (
             < div className="event_dashboard" >
                 <Card>
                     <CardHeader className="clearfix">
-                        <h5 className="card-title">Lista de Eventos <Button className="float-sm-right" color="primary">
-                            Crear Evento
-                                <FontAwesomeIcon icon="plus-circle" />
-                        </Button></h5>
+                        <h5 className="card-title">
+                            Lista de Eventos
+                            <Button onClick={this.toggleModalCreateEvent} className="float-sm-right" color="primary">
+                                Crear Evento <FontAwesomeIcon icon="plus-circle" />
+                            </Button>
+                            {/* Modal Create Event */}
+                            <Modal
+                                isOpen={this.state.modal}
+                                toggle={this.toggleModalCreateEvent}
+                                className={this.props.className}>
+                                <ModalHeader toggle={this.toggleModalCreateEvent}>Crea Evento</ModalHeader>
+                                <ModalBody>
+                                    <div className="form_create_event">
+                                        <Form>
+                                            <FormGroup>
+                                                <Label for="eventName">Nombre del Evento</Label>
+                                                <Input type="text" name="name" id="eventName" placeholder="Reunion, Fiesta, Boda..." />
+                                            </FormGroup>
+                                            <Row form>
+                                                <Col md={6}>
+                                                    <FormGroup>
+                                                        <Label for="noTables">Numero de Mesas</Label>
+                                                        <Input type="number" name="tables" id="noTables" />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <FormGroup>
+                                                        <Label for="spaces">Espacios por Mesa</Label>
+                                                        <Input type="select" name="spaces" id="spaces">
+                                                            <option>8</option>
+                                                            <option>10</option>
+                                                            <option>12</option>
+                                                            <option>14</option>
+                                                        </Input>
+                                                    </FormGroup>
+                                                </Col>
+                                            </Row>
+                                        </Form>
+
+                                    </div>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button color="primary" onClick={this.toggleModalCreateEvent}>Crear Evento</Button>{' '}
+                                    <Button color="secondary" onClick={this.toggleModalCreateEvent}>Cancelar</Button>
+                                </ModalFooter>
+                            </Modal>
+                        </h5>
                     </CardHeader>
                     <CardBody className="card_body_events">
                         {/* List of Events */}
@@ -67,7 +119,10 @@ class Events extends Component {
                     <CardFooter>Footer</CardFooter>
                 </Card>
                 <Card>
-                    <CardHeader> <h5 className="card-title">Boda de John Duo y Alexa Res</h5> </CardHeader>
+                    <CardHeader className="event_header_card">
+                        <h5 className="card-title">Boda de John Duo y Alexa Res</h5>
+                        <Button outline color="primary">Confirmar Cita</Button>
+                    </CardHeader>
                     <CardBody className="details_grid">
                         <Card>
                             <CardBody className="status_grid">
@@ -110,6 +165,15 @@ class Events extends Component {
                                     <div>Editar/Eliminar: </div>
                                 </div>
                                 <div className="guest_list_container">
+                                    <Card className="guest_card">
+                                        <div className="guest_title">Raúl E. Reza</div>
+                                        <div className="guest_tables">3</div>
+                                        <div className="guest_subguest">14</div>
+                                        <div className="guest_tools">
+                                            <Button size="sm" color="warning"> <FontAwesomeIcon icon="edit" /> </Button>
+                                            <Button size="sm" color="danger"> <FontAwesomeIcon icon="trash" /> </Button>
+                                        </div>
+                                    </Card>
                                     <Card className="guest_card">
                                         <div className="guest_title">Raúl E. Reza</div>
                                         <div className="guest_tables">3</div>
