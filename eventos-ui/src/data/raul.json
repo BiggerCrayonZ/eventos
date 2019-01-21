@@ -3,18 +3,32 @@
     "email": "raul.reza.delcastillo@gmail.com",
     "events": [
         {
-            "name": "Boda",
+            "name": "Boda de la Tia",
             "tables": 8,
             "n_spaces": 10,
             "guest": [
                 {
-                    "name": "",
-                    "status": "boolean",
+                    "name": "Paul Corinto",
+                    "status": false,
                     "n_tables": 1,
-                    "n_guest": 1,
-                    "assign_tables": [1,2]
+                    "n_guest": 2,
+                    "assign_tables": 1
+                },
+                {
+                    "name": "John Duo",
+                    "status": false,
+                    "n_tables": 1,
+                    "n_guest": 4,
+                    "assign_tables": 2
+                },
+                {
+                    "name": "Familia Hernandez",
+                    "status": false,
+                    "n_tables": 1,
+                    "n_guest": 6,
+                    "assign_tables": 3
                 }
             ]
         }
-    ],
+    ]
 }
