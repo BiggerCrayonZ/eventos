@@ -27,6 +27,7 @@ class Events extends Component {
             currentUserMail: idToken.idToken.claims.email,
             currentUserName: idToken.idToken.claims.name
         });
+        this.storage.createEvent('Junta de Congreso', 8, 8);
 
     }
 
