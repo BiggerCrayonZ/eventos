@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 
 import {
-    Card, CardImg, CardText, CardBody, CardLink,
-    CardTitle, CardSubtitle, CardHeader, CardFooter, Button,
-    InputGroup, InputGroupText, InputGroupAddon, Input,
-    Modal, ModalHeader, ModalBody, ModalFooter,
-    Form, FormGroup, Label, Col, Row, CustomInput,
-    ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem,
-    ListGroup, ListGroupItem
+    Card, CardBody, CardHeader, CardFooter, Button,
+    Modal, ModalHeader, ModalBody, ModalFooter, Label
 } from 'reactstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -48,6 +43,10 @@ class EventList extends Component {
         this.toggleModalCreateEvent();
     }
 
+    callEventInfo = (event) => {
+        this.props.eventInfo(event);
+    }
+
     renderEventList = () => {
         let array = [];
         for (let i = 0; i < this.props.events.length; i++) {
@@ -66,7 +65,7 @@ class EventList extends Component {
                             </h6>
                         </div>
                         <div className="event_tools">
-                            <Button color="info">
+                            <Button onClick={this.callEventInfo.bind(null, element)} color="info">
                                 <FontAwesomeIcon icon="arrow-right" />
                             </Button>
                         </div>

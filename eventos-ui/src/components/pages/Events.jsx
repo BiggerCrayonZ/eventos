@@ -17,7 +17,8 @@ class Events extends Component {
         super(props);
         this.state = {
             currentUserName: '',
-            currentUserMail: ''
+            currentUserMail: '',
+            eventInfo: '',
         };
     }
 
@@ -33,14 +34,19 @@ class Events extends Component {
         this.storage.createEvent(name, tables, spaces);
     }
 
+    sendEventInfo = (event) => {
+        this.setState({ eventInfo: event })
+    }
+
     render() {
         // const { currentUserMail, currentUserName } = this.state;
         return (
             < div className="event_dashboard" >
-                <EventList 
-                    events={this.storage.getEventsList()} 
-                    createEvent={this.createEvent}/>
-                <EventDetails />
+                <EventList
+                    events={this.storage.getEventsList()}
+                    createEvent={this.createEvent}
+                    eventInfo={this.sendEventInfo} />
+                <EventDetails eventInfo={this.state.eventInfo} />
             </div >
         )
     }
