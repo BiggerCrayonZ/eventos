@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+
 
 /* Components */
 import Navbar from './components/template/NavBar';
 import Home from './components/pages/Home';
-import Staff from './components/pages/Staff';
+import Events from './components/pages/Events';
 import Login from './components/auth/Login';
 
+library.add(fas, fab);
 
 const config = {
   issuer: 'https://dev-917519.oktapreview.com/oauth2/default',
@@ -26,9 +31,9 @@ class App extends Component {
         >
           <div className="App">
             <Navbar />
-            <div className="container">
+            <div className="app_container">
               <Route path="/" exact={true} component={Home} />
-              <SecureRoute path="/staff" exact={true} component={Staff} />
+              <SecureRoute path="/events" exact={true} component={Events} />
               <Route
                 path="/login"
                 render={() => (

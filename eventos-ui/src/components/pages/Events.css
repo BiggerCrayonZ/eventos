@@ -1,0 +1,102 @@
+.event_dashboard{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 1em;
+    gap: 1em;
+}
+
+.card_body_events{
+    height: 65vh;
+    overflow-y: auto;
+}
+
+.float-sm-right > svg {
+    margin-left: 0.5em;
+}
+
+.card_event{
+    margin-bottom: 0.5em;
+}
+
+.event_grid{
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    gap: 0.5em;
+    grid-gap: 0.5em;
+}
+
+.event_icon{
+    margin: auto;
+    font-size: 1.5em;
+}
+
+.guest_section{
+    display: grid;
+    grid-template-rows: 30% 70%;
+}
+
+.details_grid{
+    display: grid;
+    grid-template-rows: 16% 84%;
+    gap: 0.5em;
+    grid-gap: 0.5em;
+}
+
+.status_grid{
+    height: 100%;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    padding: 0.2em !important;
+}
+
+.event_name { text-align: left; }
+.event_tools { margin: auto; }
+.status_item {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin: auto; 
+}
+.status_item > svg { margin: auto; }
+
+.span_event {font-size: 0.8em; margin-top: 0.5em;}
+
+
+.guest_container{
+    display: grid !important;
+    grid-template-rows: 16% 84%;
+}
+
+.guest_header{
+    padding: 0.5em !important;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.guest_list{
+    height: 100%;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.guest_card{
+    display: grid !important;
+    grid-template-columns: 25% 25% 25% 25%;
+    padding: 0.4em;
+    font-size: 0.8em;
+}
+
+.guest_card > div {
+    margin: auto;
+}
+
+.guest_list_header {
+    display: grid !important;
+    grid-template-columns: 25% 25% 25% 25%;
+    font-size: 0.8em;
+    margin-bottom: 0.4em;
+}
+
+.guest_tools > button{
+    margin-left: 0.4em;
+    font-size: 0.8em !important;
+}

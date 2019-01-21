@@ -1,3 +1,7 @@
-.container{
-  padding-top: 2em;
+.app_container{
+  height: 100%;
+  max-width: 90%;
+  padding-top: 4vh;
+  margin-right: auto; margin-left: auto;
 }
+

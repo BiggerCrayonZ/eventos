@@ -1,0 +1,20 @@
+{
+    "name": "Raúl Reza",
+    "email": "raul.reza.delcastillo@gmail.com",
+    "events": [
+        {
+            "name": "Boda",
+            "tables": 8,
+            "n_spaces": 10,
+            "guest": [
+                {
+                    "name": "",
+                    "status": "boolean",
+                    "n_tables": 1,
+                    "n_guest": 1,
+                    "assign_tables": [1,2]
+                }
+            ]
+        }
+    ],
+}
