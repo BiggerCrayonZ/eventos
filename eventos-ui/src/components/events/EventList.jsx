@@ -12,10 +12,16 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+/* Components */
 
+import CreateEvent from './forms/CreateEvent';
 
 class EventList extends Component {
     state = {
+        eventName: '',
+        eventTables: 0,
+        eventSpaces: 8,
+        eventFree: 0,
         modalCreateEvent: false,
     }
 
@@ -23,6 +29,23 @@ class EventList extends Component {
         this.setState({
             modalCreateEvent: !this.state.modalCreateEvent
         });
+    }
+
+    handleNameField = (value) => {
+        this.setState({ eventName: value })
+    }
+
+    handleTablesField = (value) => {
+        this.setState({ eventTables: value })
+    }
+
+    handleSpacesField = (value) => {
+        this.setState({ eventSpaces: value })
+    }
+
+    callCreateEvent = () => {
+        this.props.createEvent(this.state.eventName, this.state.eventTables, this.state.eventSpaces);
+        this.toggleModalCreateEvent();
     }
 
     renderEventList = () => {
@@ -38,8 +61,8 @@ class EventList extends Component {
                             <h5 className="card-title">{element.name}</h5>
                             <h6 className="card-subtitle mb-2 text-muted">
                                 Disponibles: {free}
-                                 - Confirmados: {element.confirm}
-                                 - Invitados en espera: {element.guest.length}
+                                - Confirmados: {element.confirm}
+                                - Invitados en espera: {element.guest.length}
                             </h6>
                         </div>
                         <div className="event_tools">
@@ -69,59 +92,30 @@ class EventList extends Component {
                                 isOpen={this.state.modalCreateEvent}
                                 toggle={this.toggleModalCreateEvent}
                                 className={this.props.className}>
-                                <ModalHeader toggle={this.toggleModalCreateEvent}>Crea Evento</ModalHeader>
+                                <ModalHeader toggle={this.toggleModalCreateEvent}>Crea Evento: </ModalHeader>
                                 <ModalBody>
                                     <div className="form_create_event">
-                                        <Form>
-                                            <FormGroup>
-                                                <Label for="eventName">Nombre del Evento</Label>
-                                                <Input type="text" name="name" id="eventName" placeholder="Reunion, Fiesta, Boda..." />
-                                            </FormGroup>
-                                            <Row form>
-                                                <Col md={6}>
-                                                    <FormGroup>
-                                                        <Label for="noTables">Numero de Mesas</Label>
-                                                        <Input type="number" name="tables" id="noTables" />
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col md={6}>
-                                                    <FormGroup>
-                                                        <Label for="spaces">Espacios por Mesa</Label>
-                                                        <Input type="select" name="spaces" id="spaces">
-                                                            <option>8</option>
-                                                            <option>10</option>
-                                                            <option>12</option>
-                                                            <option>14</option>
-                                                        </Input>
-                                                    </FormGroup>
-                                                </Col>
-                                            </Row>
-                                        </Form>
+                                        {/* Create Event form */}
+                                        <CreateEvent
+                                            changeName={this.handleNameField}
+                                            changeTables={this.handleTablesField}
+                                            changeSpaces={this.handleSpacesField} />
                                     </div>
                                 </ModalBody>
                                 <ModalFooter>
-                                    <Button color="primary" onClick={this.toggleModalCreateEvent}>Crear Evento</Button>{' '}
-                                    <Button color="secondary" onClick={this.toggleModalCreateEvent}>Cancelar</Button>
+                                    <div className="create_modal_footer">
+                                        <Label className="float-sm-right" >Espacios Disponibles: {this.state.eventTables * this.state.eventSpaces}</Label>
+                                        <div className="button_section">
+                                            <Button className="float-sm-right" color="secondary" onClick={this.toggleModalCreateEvent}>Cancelar</Button>
+                                            {(this.state.eventName.length) && (this.state.eventTables * this.state.eventSpaces) > 0 ? <Button className="float-sm-right" color="primary" onClick={this.callCreateEvent}>Crear Evento</Button> : null}
+                                        </div>
+                                    </div>
                                 </ModalFooter>
                             </Modal>
                         </h5>
                     </CardHeader>
                     <CardBody className="card_body_events">
                         {/* List of Events */}
-                        {/* <Card className="card_event">
-                            <CardBody className="event_grid">
-                                <div className="event_icon"><FontAwesomeIcon icon="users" /></div>
-                                <div className="event_details">
-                                    <h5 className="card-title">Boda de John Duo y Alexa Res</h5>
-                                    <h6 className="card-subtitle mb-2 text-muted">Disponibles: 100 - Confirmados: 40 - Invitados: 4</h6>
-                                </div>
-                                <div className="event_tools">
-                                    <Button color="info">
-                                        <FontAwesomeIcon icon="arrow-right" />
-                                    </Button>
-                                </div>
-                            </CardBody>
-                        </Card> */}
                         {this.renderEventList()}
                     </CardBody>
                     <CardFooter>Footer</CardFooter>

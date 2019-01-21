@@ -27,15 +27,19 @@ class Events extends Component {
             currentUserMail: idToken.idToken.claims.email,
             currentUserName: idToken.idToken.claims.name
         });
-        this.storage.createEvent('Junta de Congreso', 8, 8);
+    }
 
+    createEvent = (name, tables, spaces) => {
+        this.storage.createEvent(name, tables, spaces);
     }
 
     render() {
         // const { currentUserMail, currentUserName } = this.state;
         return (
             < div className="event_dashboard" >
-                <EventList events={this.storage.getEventsList()} />
+                <EventList 
+                    events={this.storage.getEventsList()} 
+                    createEvent={this.createEvent}/>
                 <EventDetails />
             </div >
         )

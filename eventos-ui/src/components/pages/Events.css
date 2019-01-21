@@ -10,6 +10,16 @@
     overflow-y: auto;
 }
 
+.create_modal_footer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.button_section > button {
+    margin-left: 0.5em;
+}
+
 .float-sm-right > svg {
     margin-left: 0.5em;
 }
