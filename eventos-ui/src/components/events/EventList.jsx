@@ -12,6 +12,8 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+
+
 class EventList extends Component {
     state = {
         modalCreateEvent: false,
@@ -22,7 +24,36 @@ class EventList extends Component {
             modalCreateEvent: !this.state.modalCreateEvent
         });
     }
-    
+
+    renderEventList = () => {
+        let array = [];
+        for (let i = 0; i < this.props.events.length; i++) {
+            let element = this.props.events[i];
+            let free = ((element.n_spaces * element.tables) - element.confirm);
+            array.push(
+                <Card key={i} className="card_event">
+                    <CardBody className="event_grid">
+                        <div className="event_icon"><FontAwesomeIcon icon="users" /></div>
+                        <div className="event_details">
+                            <h5 className="card-title">{element.name}</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">
+                                Disponibles: {free}
+                                 - Confirmados: {element.confirm}
+                                 - Invitados en espera: {element.guest.length}
+                            </h6>
+                        </div>
+                        <div className="event_tools">
+                            <Button color="info">
+                                <FontAwesomeIcon icon="arrow-right" />
+                            </Button>
+                        </div>
+                    </CardBody>
+                </Card>
+            )
+        }
+        return array;
+    }
+
     render() {
         return (
             <div className="list_container">
@@ -66,7 +97,6 @@ class EventList extends Component {
                                                 </Col>
                                             </Row>
                                         </Form>
-
                                     </div>
                                 </ModalBody>
                                 <ModalFooter>
@@ -78,7 +108,7 @@ class EventList extends Component {
                     </CardHeader>
                     <CardBody className="card_body_events">
                         {/* List of Events */}
-                        <Card className="card_event">
+                        {/* <Card className="card_event">
                             <CardBody className="event_grid">
                                 <div className="event_icon"><FontAwesomeIcon icon="users" /></div>
                                 <div className="event_details">
@@ -91,21 +121,8 @@ class EventList extends Component {
                                     </Button>
                                 </div>
                             </CardBody>
-                        </Card>
-                        <Card className="card_event">
-                            <CardBody className="event_grid">
-                                <div className="event_icon"><FontAwesomeIcon icon="users" /></div>
-                                <div className="event_details">
-                                    <h5 className="card-title">Boda de John Duo y Alexa Res</h5>
-                                    <h6 className="card-subtitle mb-2 text-muted">Disponibles: 100 - Confirmados: 40 - Invitados: 4</h6>
-                                </div>
-                                <div className="event_tools">
-                                    <Button color="info">
-                                        <FontAwesomeIcon icon="arrow-right" />
-                                    </Button>
-                                </div>
-                            </CardBody>
-                        </Card>
+                        </Card> */}
+                        {this.renderEventList()}
                     </CardBody>
                     <CardFooter>Footer</CardFooter>
                 </Card>
