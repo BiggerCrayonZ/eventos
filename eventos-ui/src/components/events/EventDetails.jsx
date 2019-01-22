@@ -12,17 +12,14 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+/* Components */
+import StatusComponent from './templates/StatusComponent';
+import GuestComponent from './templates/GuestComponent';
+
 class EventDetails extends Component {
     state = {
-        modalAddGuest: false,
         modalConfirm: false,
         dropdownTables: false
-    }
-
-    toggleModalAddGuest = () => {
-        this.setState({
-            modalAddGuest: !this.state.modalAddGuest
-        });
     }
 
     toggleModalConfirm = () => {
@@ -42,7 +39,7 @@ class EventDetails extends Component {
             return (
                 <Card>
                     <CardHeader className="event_header_card">
-                        <h5 className="card-title">Boda de John Duo y Alexa Res</h5>
+                        <h5 className="card-title generic_title">{this.props.eventInfo.name}</h5>
                         <Button onClick={this.toggleModalConfirm} outline color="primary">Confirmar Cita</Button>
                         {/* Modal Confirm Guest */}
                         <Modal
@@ -111,125 +108,8 @@ class EventDetails extends Component {
                         </Modal>
                     </CardHeader>
                     <CardBody className="details_grid">
-                        <Card>
-                            <CardBody className="status_grid">
-                                <div className="status_item">
-                                    <FontAwesomeIcon icon="list-alt" />
-                                    <p className="text-muted span_event">100 Espacios Disponibles</p>
-                                </div>
-                                <div className="status_item">
-                                    <FontAwesomeIcon icon="user-check" />
-                                    <p className="text-muted span_event">100 Invitados Confirmados</p>
-                                </div>
-                                <div className="status_item">
-                                    <FontAwesomeIcon icon="user-circle" />
-                                    <p className="text-muted span_event">100 Invitados en Espera</p>
-                                </div>
-                            </CardBody>
-                        </Card>
-                        <Card className="guest_container">
-                            <CardHeader className="guest_header">
-                                <div className="guest_finder">
-                                    <InputGroup>
-                                        <InputGroupAddon addonType="prepend">
-                                            <InputGroupText > <FontAwesomeIcon icon="search" /> </InputGroupText>
-                                            <Input placeholder="Buscar invitado" size="sm" />
-                                        </InputGroupAddon>
-                                    </InputGroup>
-                                </div>
-                                <div className="guest_add">
-                                    <Button size="sm" onClick={this.toggleModalAddGuest} className="float-sm-right" color="primary">
-                                        Agregar Invitado <FontAwesomeIcon icon="plus-circle" />
-                                    </Button>
-                                    {/* Modal Add Guest */}
-                                    <Modal
-                                        size="lg"
-                                        isOpen={this.state.modalAddGuest}
-                                        toggle={this.toggleModalAddGuest}
-                                        className={this.props.className}>
-                                        <ModalHeader toggle={this.toggleModalAddGuest}>Agregar Invitado</ModalHeader>
-                                        <ModalBody>
-                                            <div className="form_create_event">
-                                                <Form>
-                                                    <FormGroup>
-                                                        <Label for="eventName">Nombre del Invitado</Label>
-                                                        <Input type="text" maxLength="16" name="name" id="eventName" placeholder="Max. 16 caracteres" />
-                                                    </FormGroup>
-                                                    <Row form>
-                                                        <Col md={4}>
-                                                            <FormGroup>
-                                                                <Label for="noGuest">Numero de Acompañantes</Label>
-                                                                <Input placeholder="Max. 10 personas" type="number" name="noGuest" id="noGuest" />
-                                                            </FormGroup>
-                                                        </Col>
-                                                        <Col md={3}>
-                                                            <Label for="total">Total de Invitados</Label>
-                                                            <InputGroup>
-                                                                <InputGroupAddon addonType="prepend">
-                                                                    <InputGroupText>
-                                                                        <FontAwesomeIcon icon="users" />
-                                                                    </InputGroupText>
-                                                                </InputGroupAddon>
-                                                                <Input id="total" disabled placeholder={this.state.currentUserMail} />
-                                                            </InputGroup>
-                                                        </Col>
-                                                        <Col md={5}>
-                                                            <Label for="table">Mesa Asignada</Label>
-                                                            <InputGroup>
-                                                                <InputGroupAddon addonType="prepend">
-                                                                    <InputGroupText>
-                                                                        5 Disponibles
-                                                                        </InputGroupText>
-                                                                </InputGroupAddon>
-                                                                <Input type="select" name="table" id="table">
-                                                                    <option>1</option>
-                                                                    <option>2</option>
-                                                                    <option>3</option>
-                                                                    <option>4</option>
-                                                                </Input>
-                                                            </InputGroup>
-                                                        </Col>
-                                                    </Row>
-                                                </Form>
-                                            </div>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                            <Button color="primary" onClick={this.toggleModalAddGuest}>Añadir Invitado</Button>{' '}
-                                            <Button color="secondary" onClick={this.toggleModalAddGuest}>Cancelar</Button>
-                                        </ModalFooter>
-                                    </Modal>
-                                </div>
-                            </CardHeader>
-                            <CardBody className="guest_list" >
-                                {/* GuestList */}
-                                <div className="guest_list_header">
-                                    <div>Nombre: </div>
-                                    <div>Mesa: </div>
-                                    <div>Invitados: </div>
-                                    <div>Editar/Eliminar: </div>
-                                </div>
-                                <div className="guest_list_container">
-                                    <Card className="guest_card">
-                                        <div className="guest_title">Raúl E. Reza</div>
-                                        <div className="guest_tables">3</div>
-                                        <div className="guest_subguest">14</div>
-                                        <div className="guest_tools">
-                                            <Button size="sm" color="warning"> <FontAwesomeIcon icon="edit" /> </Button>
-                                            <Button size="sm" color="danger"> <FontAwesomeIcon icon="trash" /> </Button>
-                                        </div>
-                                    </Card>
-                                    <Card className="guest_card">
-                                        <div className="guest_title">Raúl E. Reza</div>
-                                        <div className="guest_tables">3</div>
-                                        <div className="guest_subguest">14</div>
-                                        <div className="guest_tools">
-                                            <Button size="sm" color="warning"> <FontAwesomeIcon icon="edit" /> </Button>
-                                            <Button size="sm" color="danger"> <FontAwesomeIcon icon="trash" /> </Button>
-                                        </div>
-                                    </Card>
-                                </div>
-                            </CardBody>
-                        </Card>
+                        <StatusComponent event={this.props.eventInfo}/>
+                        <GuestComponent event={this.props.eventInfo} />
                     </CardBody>
                     <CardFooter>
                         <h6 className="card-subtitle mb-2 text-muted">No. de Mesas: 14 - Espacios por Mesa: 10</h6>

@@ -81,7 +81,7 @@ class EventList extends Component {
             <div className="list_container">
                 <Card>
                     <CardHeader className="clearfix">
-                        <h5 className="card-title">
+                        <h5 className="card-title generic_title">
                             Lista de Eventos
                             <Button onClick={this.toggleModalCreateEvent} className="float-sm-right" color="primary">
                                 Crear Evento <FontAwesomeIcon icon="plus-circle" />

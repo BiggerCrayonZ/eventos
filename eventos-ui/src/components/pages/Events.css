@@ -5,6 +5,8 @@
     gap: 1em;
 }
 
+.generic_title{ text-align: center; margin: auto; }
+
 .card_body_events{
     height: 65vh;
     overflow-y: auto;
