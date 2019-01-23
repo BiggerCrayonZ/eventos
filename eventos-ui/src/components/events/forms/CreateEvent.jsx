@@ -35,7 +35,13 @@ class CreateEvent extends Component {
                     <Col md={6}>
                         <FormGroup>
                             <Label for="noTables">Numero de Mesas</Label>
-                            <Input onChange={this.handleChangeTablesField} type="number" name="tables" id="noTables" />
+                            <Input 
+                                onChange={this.handleChangeTablesField} 
+                                type="number" 
+                                name="tables" 
+                                id="noTables"
+                                min={4}
+                                max={100} />
                         </FormGroup>
                     </Col>
                     <Col md={6}>

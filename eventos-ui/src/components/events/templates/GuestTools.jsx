@@ -57,7 +57,6 @@ class GuestTools extends Component {
                     </Button>
                     {/* Modal Add Guest */}
                     <Modal
-                        size="lg"
                         isOpen={this.state.modalAddGuest}
                         toggle={this.toggleModalAddGuest}
                         className={this.props.className}>

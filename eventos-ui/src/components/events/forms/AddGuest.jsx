@@ -36,12 +36,14 @@ class AddGuest extends Component {
                             }} />
                     </FormGroup>
                     <Row form>
-                        <Col md={4}>
+                        <Col md={6}>
                             <FormGroup>
                                 <Label
                                     for="noGuest">Numero de Acompañantes</Label>
                                 <Input
                                     placeholder="Max. 10 personas"
+                                    max={10}
+                                    min={1}
                                     type="number"
                                     name="noGuest"
                                     id="noGuest"
@@ -50,21 +52,7 @@ class AddGuest extends Component {
                                     }} />
                             </FormGroup>
                         </Col>
-                        <Col md={3}>
-                            <Label for="total">Total de Invitados</Label>
-                            <InputGroup>
-                                <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                        <FontAwesomeIcon icon="users" />
-                                    </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                    id="total"
-                                    value={this.state.guest }
-                                    disabled />
-                            </InputGroup>
-                        </Col>
-                        <Col md={5}>
+                        <Col md={6}>
                             <Label for="table">Mesa Asignada</Label>
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
