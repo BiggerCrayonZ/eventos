@@ -36,6 +36,7 @@ class GuestComponent extends Component {
         return (
             <Card className="guest_container">
                 <GuestTools
+                    event={this.props.event}
                     search={this.searchGuest} />
                 <GuestList
                     list={this.state.list} />

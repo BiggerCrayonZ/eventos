@@ -15,12 +15,14 @@ class GuestTools extends Component {
 
     state = {
         modalAddGuest: false,
-        inputSearch: ''
+        inputSearch: '',
+        flag: false
     }
 
     toggleModalAddGuest = () => {
         this.setState({
-            modalAddGuest: !this.state.modalAddGuest
+            modalAddGuest: !this.state.modalAddGuest,
+            flag: false
         });
     }
 
@@ -29,6 +31,8 @@ class GuestTools extends Component {
         let text = event.target.value;
         this.props.search(text);
     }
+
+    setFlag = (flag) => { this.setState({ flag }); }
 
     render() {
         return (
@@ -63,10 +67,10 @@ class GuestTools extends Component {
                         <ModalHeader toggle={this.toggleModalAddGuest}>Agregar Invitado</ModalHeader>
                         <ModalBody>
                             {/* Add Guest Form */}
-                            <AddGuest />
+                            <AddGuest event={this.props.event} flag={this.setFlag} />
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.toggleModalAddGuest}>Añadir Invitado</Button>{' '}
+                            {this.state.flag ? <Button color="primary" onClick={this.toggleModalAddGuest}>Añadir Invitado</Button> : null}
                             <Button color="secondary" onClick={this.toggleModalAddGuest}>Cancelar</Button>
                         </ModalFooter>
                     </Modal>
