@@ -15,7 +15,8 @@ class AddGuest extends Component {
             total: 1,
             name: '',
             guest: '',
-
+            table: 0,
+            
         }
     }
 
