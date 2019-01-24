@@ -19,7 +19,7 @@
                     "name": "John Duo",
                     "status": false,
                     "n_tables": 1,
-                    "n_guest": 4,
+                    "n_guest": 1,
                     "assign_tables": 2
                 },
                 {
@@ -27,7 +27,7 @@
                     "status": false,
                     "n_tables": 1,
                     "n_guest": 6,
-                    "assign_tables": 3
+                    "assign_tables": 2
                 }
             ]
         },
