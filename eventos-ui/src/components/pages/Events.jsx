@@ -49,17 +49,7 @@ class Events extends Component {
     }
 
     createGuest = (newGuest) => {
-        this.storage.createGuest(
-            {
-                id: 0,
-                n_spaces: 10,
-                name: "Boda de la Tia",
-                tables: 8,
-            },
-            'Nombre',
-            5,
-            4
-        );
+        this.storage.createGuest(newGuest);
         this.getEventsList();
     }
 

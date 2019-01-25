@@ -27,22 +27,26 @@ class StorageFunctions {
         }
     }
 
-    createGuest(event, name, n_guest, assign_tables) {
-        this.registry.events.map((item, index) => {
-            if (item.id === event.id) {
-                let newGuest = {
-                    name,
-                    status: false,
-                    n_guest,
-                    assign_tables
+    createGuest(guest) {
+        try {
+            this.registry.events.map((item, index) => {
+                if (item.id === guest.event.id) {
+                    let newGuest = {
+                        name: guest.name,
+                        status: false,
+                        n_guest: guest.n_guest,
+                        assign_tables: guest.assign_tables
+                    }
+                    this.registry.events[index].guest.push(newGuest);
+                    console.log(newGuest);
+                    return true;
+                } else {
+                    return false;
                 }
-                this.registry.events[index].guest.push(newGuest);
-                console.log(newGuest);
-                return true;
-            } else {
-                return false;
-            }
-        })
+            })
+        } catch (err) {
+            console.log('err createGuest: ', err)
+        }
     }
 
     getEventsList() {
