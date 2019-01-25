@@ -38,7 +38,6 @@ class StorageFunctions {
                         assign_tables: parseInt(guest.assign_tables)
                     }
                     this.registry.events[index].guest.push(newGuest);
-                    console.log(newGuest);
                     return true;
                 } else {
                     return false;

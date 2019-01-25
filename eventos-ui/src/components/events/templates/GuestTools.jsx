@@ -58,16 +58,9 @@ class GuestTools extends Component {
             const element = this.props.event.guest[i];
             if (element.assign_tables === parseInt(value)) {
                 spaceSum = spaceSum + element.n_guest;
-                console.log('element.name: ', element.name);
-                console.log('element ++ : ', element.n_guest);
-                console.log('spaceSum ++ : ', spaceSum);
             }
         }
         const res = (this.state.limit - spaceSum);
-        console.log('number of guest: ', this.props.event.guest.length);
-        console.log('Limit: ', this.state.limit);
-        console.log('spaceSum final: ', spaceSum);
-        console.log('res: ', res);
         this.setState({
             table: parseInt(value),
             empty: res
@@ -84,6 +77,7 @@ class GuestTools extends Component {
             assign_tables: this.state.table
         }
         this.props.create(newGuest);
+        this.toggleModalAddGuest();
     }
 
     render() {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './Events.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 /* Components */
 import EventList from '../events/EventList';
 import EventDetails from '../events/EventDetails';
+import AlertComponent from '../events/templates/AlertComponent';
 
 /* Constants */
 import StorageFunctions from '../../functions/StorageFunctions';
@@ -19,7 +19,10 @@ class Events extends Component {
             currentUserName: '',
             currentUserMail: '',
             eventInfo: '',
-            list: []
+            list: [],
+            alert: false,
+            color: 'success',
+            text: '',
         };
     }
 
@@ -49,22 +52,41 @@ class Events extends Component {
     }
 
     createGuest = (newGuest) => {
-        this.storage.createGuest(newGuest);
+        let flag = this.storage.createGuest(newGuest);
+        if (flag) {
+            this.setState({
+                alert: true,
+                color: 'warning',
+                text: 'Error al agregar al usuario, contacta al administrador.'
+            })
+        } else {
+            this.setState({
+                alert: true,
+                color: 'success',
+                text: 'Invitado agregado, recuerda confirmar su asistencia.'
+            })
+        }
         this.getEventsList();
     }
 
     render() {
         // const { currentUserMail, currentUserName } = this.state;
         return (
-            < div className="event_dashboard" >
-                <EventList
-                    events={this.state.list}
-                    createEvent={this.createEvent}
-                    eventInfo={this.sendEventInfo} />
-                <EventDetails
-                    create={this.createGuest}
-                    eventInfo={this.state.eventInfo} />
-            </div >
+            <div>
+                {this.state.alert ?
+                    <AlertComponent
+                        color={this.state.color}
+                        text={this.state.text} /> : null}
+                < div className="event_dashboard" >
+                    <EventList
+                        events={this.state.list}
+                        createEvent={this.createEvent}
+                        eventInfo={this.sendEventInfo} />
+                    <EventDetails
+                        create={this.createGuest}
+                        eventInfo={this.state.eventInfo} />
+                </div >
+            </div>
         )
     }
 }
