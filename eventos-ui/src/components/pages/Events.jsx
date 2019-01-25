@@ -19,7 +19,12 @@ class Events extends Component {
             currentUserName: '',
             currentUserMail: '',
             eventInfo: '',
+            list: []
         };
+    }
+
+    componentWillMount() {
+        this.getEventsList();
     }
 
     componentDidMount() {
@@ -30,12 +35,32 @@ class Events extends Component {
         });
     }
 
-    createEvent = (name, tables, spaces) => {
-        this.storage.createEvent(name, tables, spaces);
+    getEventsList = () => {
+        let initList = this.storage.getEventsList();
+        this.setState({ list: initList });
     }
 
     sendEventInfo = (event) => {
         this.setState({ eventInfo: event })
+    }
+
+    createEvent = (name, tables, spaces) => {
+        this.storage.createEvent(name, tables, spaces);
+    }
+
+    createGuest = (newGuest) => {
+        this.storage.createGuest(
+            {
+                id: 0,
+                n_spaces: 10,
+                name: "Boda de la Tia",
+                tables: 8,
+            },
+            'Nombre',
+            5,
+            4
+        );
+        this.getEventsList();
     }
 
     render() {
@@ -43,10 +68,12 @@ class Events extends Component {
         return (
             < div className="event_dashboard" >
                 <EventList
-                    events={this.storage.getEventsList()}
+                    events={this.state.list}
                     createEvent={this.createEvent}
                     eventInfo={this.sendEventInfo} />
-                <EventDetails eventInfo={this.state.eventInfo} />
+                <EventDetails
+                    create={this.createGuest}
+                    eventInfo={this.state.eventInfo} />
             </div >
         )
     }

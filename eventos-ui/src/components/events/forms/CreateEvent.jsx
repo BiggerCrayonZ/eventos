@@ -24,21 +24,21 @@ class CreateEvent extends Component {
             <Form>
                 <FormGroup>
                     <Label for="eventName">Nombre del Evento</Label>
-                    <Input 
-                        onChange={this.handleChangeNameField} 
-                        type="text" 
-                        name="name" 
-                        id="eventName" 
+                    <Input
+                        onChange={this.handleChangeNameField}
+                        type="text"
+                        name="name"
+                        id="eventName"
                         placeholder="Reunion, Fiesta, Boda..." />
                 </FormGroup>
                 <Row form>
                     <Col md={6}>
                         <FormGroup>
                             <Label for="noTables">Numero de Mesas</Label>
-                            <Input 
-                                onChange={this.handleChangeTablesField} 
-                                type="number" 
-                                name="tables" 
+                            <Input
+                                onChange={this.handleChangeTablesField}
+                                type="number"
+                                name="tables"
                                 id="noTables"
                                 min={4}
                                 max={100} />
@@ -47,7 +47,11 @@ class CreateEvent extends Component {
                     <Col md={6}>
                         <FormGroup>
                             <Label for="spaces">Espacios por Mesa</Label>
-                            <Input onChange={this.handleChangeSpacesField} type="select" name="spaces" id="spaces">
+                            <Input
+                                onChange={this.handleChangeSpacesField}
+                                type="select"
+                                name="spaces"
+                                id="spaces">
                                 <option>8</option>
                                 <option>10</option>
                                 <option>12</option>

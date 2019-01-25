@@ -17,7 +17,7 @@ class GuestComponent extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({ list: nextProps.event.guest });
     }
 
@@ -31,13 +31,17 @@ class GuestComponent extends Component {
         }
         this.setState({ list: resArray });
     }
+    createGuest = (newGuest) => {
+        this.props.create(newGuest);
+    }
 
     render() {
         return (
             <Card className="guest_container">
                 <GuestTools
                     event={this.props.event}
-                    search={this.searchGuest} />
+                    search={this.searchGuest}
+                    create={this.createGuest} />
                 <GuestList
                     list={this.state.list} />
             </Card>

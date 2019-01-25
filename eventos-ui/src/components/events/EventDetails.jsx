@@ -34,6 +34,10 @@ class EventDetails extends Component {
         });
     }
 
+    createEvent = (newGuest) => {
+        this.props.create(newGuest);
+    }
+
     render() {
         if (this.props.eventInfo !== '') {
             return (
@@ -108,8 +112,10 @@ class EventDetails extends Component {
                         </Modal>
                     </CardHeader>
                     <CardBody className="details_grid">
-                        <StatusComponent event={this.props.eventInfo}/>
-                        <GuestComponent event={this.props.eventInfo} />
+                        <StatusComponent event={this.props.eventInfo} />
+                        <GuestComponent
+                            create={this.createEvent}
+                            event={this.props.eventInfo} />
                     </CardBody>
                     <CardFooter>
                         <h6 className="card-subtitle mb-2 text-muted">No. de Mesas: 14 - Espacios por Mesa: 10</h6>
