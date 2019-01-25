@@ -10,24 +10,9 @@ class AddGuest extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            total: 0,
             event: props.event,
             tableEmptySpaces: 0
         }
-    }
-
-    getEmptySpaces = (table) => {
-        let spaceLimit = this.state.event.n_spaces;
-        let spaceSum = 0;
-        for (let i = 0; i < this.state.event.guest.length; i++) {
-            const element = this.state.event.guest[i];
-            if (element.assign_tables === parseInt(table)) {
-                spaceSum = spaceSum + element.n_guest;
-            }
-        }
-        const res = (spaceLimit - spaceSum);
-        return (res);
     }
 
     renderTablesAsigned = () => {
@@ -38,36 +23,13 @@ class AddGuest extends Component {
         return array;
     }
 
-    componentWillMount() {
-        const empty = this.getEmptySpaces(1);
-        this.setState({ tableEmptySpaces: empty });
-    }
-
-    evaluateForm = () => {
-        if (this.state.name.length > 0 && this.state.total > 0 && this.state.tableEmptySpaces > 0) {
-            if (this.evaluateSpaces()) {
-                this.props.flag(true);
-            } else {
-                this.props.flag(false);
-            }
-        } else {
-            this.props.flag(false);
-        }
-    }
-
-    evaluateSpaces = () => {
-        if (this.state.tableEmptySpaces >= this.state.total) {
-            return true;
-        } else { return false; }
-    }
-
     render() {
 
         return (
             <div className="form_create_event">
                 <Form>
                     <FormGroup>
-                        <Label for="eventName">Nombre del Invitado</Label>
+                        <Label for="eventName">Nombre del Invitado </Label>
                         <Input
                             type="text"
                             maxLength="16"
@@ -75,7 +37,7 @@ class AddGuest extends Component {
                             id="eventName"
                             placeholder="Max. 16 caracteres"
                             onChange={(event) => {
-                                this.setState({ name: event.target.value });
+                                this.props.setName(event.target.value)
                             }} />
                     </FormGroup>
                     <Row form>
@@ -86,15 +48,15 @@ class AddGuest extends Component {
                                 <Input
                                     placeholder={
                                         'Max. ' +
-                                        this.state.tableEmptySpaces +
+                                        this.props.empty +
                                         ' personas'}
-                                    max={this.state.tableEmptySpaces}
+                                    max={this.props.empty}
                                     min={1}
                                     type="number"
                                     name="noGuest"
                                     id="noGuest"
                                     onChange={(event) => {
-                                        this.setState({ total: event.target.value });
+                                        this.props.setTotal(event.target.value)
                                     }} />
                             </FormGroup>
                         </Col>
@@ -103,7 +65,7 @@ class AddGuest extends Component {
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText>
-                                        {this.state.tableEmptySpaces} Disponibles
+                                        {this.props.empty} Disponibles
                                     </InputGroupText>
                                 </InputGroupAddon>
                                 <Input
@@ -111,8 +73,7 @@ class AddGuest extends Component {
                                     name="table"
                                     id="table"
                                     onChange={(event) => {
-                                        const empty = this.getEmptySpaces(event.target.value);
-                                        this.setState({ tableEmptySpaces: empty })
+                                        this.props.setEmpty(event.target.value)
                                     }}>
                                     {this.renderTablesAsigned()}
                                 </Input>
