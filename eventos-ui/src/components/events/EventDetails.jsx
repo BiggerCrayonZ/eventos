@@ -118,7 +118,10 @@ class EventDetails extends Component {
                             event={this.props.eventInfo} />
                     </CardBody>
                     <CardFooter>
-                        <h6 className="card-subtitle mb-2 text-muted">No. de Mesas: 14 - Espacios por Mesa: 10</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">
+                            No. de Mesas: {this.props.eventInfo.tables} -
+                            Espacios por Mesa: {this.props.eventInfo.n_spaces}
+                        </h6>
                     </CardFooter>
                 </Card>
             );
