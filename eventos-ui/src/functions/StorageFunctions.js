@@ -34,8 +34,8 @@ class StorageFunctions {
                     let newGuest = {
                         name: guest.name,
                         status: false,
-                        n_guest: guest.n_guest,
-                        assign_tables: guest.assign_tables
+                        n_guest: parseInt(guest.n_guest),
+                        assign_tables: parseInt(guest.assign_tables)
                     }
                     this.registry.events[index].guest.push(newGuest);
                     console.log(newGuest);

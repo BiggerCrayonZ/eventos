@@ -58,6 +58,7 @@ class GuestTools extends Component {
             const element = this.props.event.guest[i];
             if (element.assign_tables === parseInt(value)) {
                 spaceSum = spaceSum + element.n_guest;
+                console.log('element.name: ', element.name);
                 console.log('element ++ : ', element.n_guest);
                 console.log('spaceSum ++ : ', spaceSum);
             }
