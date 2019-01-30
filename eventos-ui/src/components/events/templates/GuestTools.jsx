@@ -13,9 +13,13 @@ import AddGuest from '../forms/AddGuest';
 
 class GuestTools extends Component {
 
+
     state = {
         modalAddGuest: false,
         inputSearch: '',
+        name: '',
+        total: 0,
+        empty: 0,
         flag: false
     }
 
@@ -32,7 +36,39 @@ class GuestTools extends Component {
         this.props.search(text);
     }
 
-    setFlag = (flag) => { this.setState({ flag }); }
+    evaluateForm = () => {
+        if (this.state.name.length > 0 && this.state.total > 0 && this.state.tableEmptySpaces > 0) {
+            if (this.evaluateSpaces()) {
+                this.props.flag(true);
+            } else {
+                this.props.flag(false);
+            }
+        } else {
+            this.props.flag(false);
+        }
+    }
+
+    evaluateSpaces = () => {
+        if (this.state.tableEmptySpaces >= this.state.total) {
+            return true;
+        } else { return false; }
+    }
+
+    
+
+    /*  */
+
+    setName = (event) => {
+        this.setState({ name: event.target.value });
+    }
+
+    setTotal = (event) => {
+        this.setState({ total: event.target.value });
+    }
+
+    setEmpty = (event) => {
+        this.setState({ empty: event.target.value });
+    }
 
     render() {
         return (
@@ -64,10 +100,15 @@ class GuestTools extends Component {
                         isOpen={this.state.modalAddGuest}
                         toggle={this.toggleModalAddGuest}
                         className={this.props.className}>
-                        <ModalHeader toggle={this.toggleModalAddGuest}>Agregar Invitado</ModalHeader>
+                        <ModalHeader toggle={this.toggleModalAddGuest}>Agregar Invitado </ModalHeader>
                         <ModalBody>
                             {/* Add Guest Form */}
-                            <AddGuest event={this.props.event} flag={this.setFlag} />
+                            <AddGuest
+                                setName={this.setName}
+                                setTotal={this.setTotal}
+                                setEmpty={this.setEmpty}
+                                event={this.props.event}
+                                 />
                         </ModalBody>
                         <ModalFooter>
                             {this.state.flag ? <Button color="primary" onClick={this.toggleModalAddGuest}>Añadir Invitado</Button> : null}
