@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './Events.css';
 
 /* Components */
@@ -79,7 +80,7 @@ class Events extends Component {
                         text={this.state.text} /> : null}
                 < div className="event_dashboard" >
                     <EventList
-                        events={this.state.list}
+                        events={this.props.list}
                         createEvent={this.createEvent}
                         eventInfo={this.sendEventInfo} />
                     <EventDetails
@@ -91,4 +92,9 @@ class Events extends Component {
     }
 }
 
-export default Events;
+const mapStateToProps = state => ({
+    list: state.events
+})
+
+export default connect(mapStateToProps)(Events)
+
