@@ -13,14 +13,18 @@ import AddGuest from '../forms/AddGuest';
 
 class GuestTools extends Component {
 
-
-    state = {
-        modalAddGuest: false,
-        inputSearch: '',
-        name: '',
-        total: 0,
-        empty: 0,
-        flag: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalAddGuest: false,
+            inputSearch: '',
+            name: '',
+            total: 0,
+            table: 0,
+            empty: 0,
+            limit: props.event.n_spaces,
+            flag: false
+        }
     }
 
     toggleModalAddGuest = () => {
@@ -36,38 +40,44 @@ class GuestTools extends Component {
         this.props.search(text);
     }
 
-    evaluateForm = () => {
-        if (this.state.name.length > 0 && this.state.total > 0 && this.state.tableEmptySpaces > 0) {
-            if (this.evaluateSpaces()) {
-                this.props.flag(true);
-            } else {
-                this.props.flag(false);
+    setFlag = (flag) => {
+        this.setState({ flag });
+    }
+
+    setName = (value) => {
+        this.setState({ name: value });
+    }
+    setTotal = (value) => {
+        this.setState({
+            total: value
+        });
+    }
+    setEmpty = (value) => {
+        let spaceSum = 0;
+        for (let i = 0; i < this.props.event.guest.length; i++) {
+            const element = this.props.event.guest[i];
+            if (element.assign_tables === parseInt(value)) {
+                spaceSum = spaceSum + element.n_guest;
             }
-        } else {
-            this.props.flag(false);
         }
+        const res = (this.state.limit - spaceSum);
+        this.setState({
+            table: parseInt(value),
+            empty: res
+        });
     }
 
-    evaluateSpaces = () => {
-        if (this.state.tableEmptySpaces >= this.state.total) {
-            return true;
-        } else { return false; }
-    }
+    componentDidMount() { this.setEmpty(0); }
 
-    
-
-    /*  */
-
-    setName = (event) => {
-        this.setState({ name: event.target.value });
-    }
-
-    setTotal = (event) => {
-        this.setState({ total: event.target.value });
-    }
-
-    setEmpty = (event) => {
-        this.setState({ empty: event.target.value });
+    createEvent = () => {
+        let newGuest = {
+            event: this.props.event,
+            name: this.state.name,
+            n_guest: this.state.total,
+            assign_tables: this.state.table
+        }
+        this.props.create(newGuest);
+        this.toggleModalAddGuest();
     }
 
     render() {
@@ -100,19 +110,36 @@ class GuestTools extends Component {
                         isOpen={this.state.modalAddGuest}
                         toggle={this.toggleModalAddGuest}
                         className={this.props.className}>
-                        <ModalHeader toggle={this.toggleModalAddGuest}>Agregar Invitado </ModalHeader>
+                        <ModalHeader
+                            toggle={this.toggleModalAddGuest}>
+                            Agregar Invitado
+                        </ModalHeader>
                         <ModalBody>
                             {/* Add Guest Form */}
                             <AddGuest
                                 setName={this.setName}
                                 setTotal={this.setTotal}
+                                empty={this.state.empty}
                                 setEmpty={this.setEmpty}
                                 event={this.props.event}
-                                 />
+                                flag={this.setFlag} />
                         </ModalBody>
                         <ModalFooter>
-                            {this.state.flag ? <Button color="primary" onClick={this.toggleModalAddGuest}>Añadir Invitado</Button> : null}
-                            <Button color="secondary" onClick={this.toggleModalAddGuest}>Cancelar</Button>
+                            {(
+                                this.state.name.length > 0 &&
+                                this.state.total > 0 &&
+                                this.state.table > 0 &&
+                                this.state.limit >= this.state.total) ?
+                                <Button
+                                    color="primary"
+                                    onClick={this.createEvent}>
+                                    Añadir Invitado
+                                </Button> : null}
+                            <Button
+                                color="secondary"
+                                onClick={this.toggleModalAddGuest}>
+                                Cancelar
+                            </Button>
                         </ModalFooter>
                     </Modal>
                 </div>

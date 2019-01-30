@@ -7,17 +7,12 @@ import {
 
 class AddGuest extends Component {
 
-    getEmptySpaces = (table) => {
-        let spaceLimit = this.state.event.n_spaces;
-        let spaceSum = 0;
-        for (let i = 0; i < this.state.event.guest.length; i++) {
-            const element = this.state.event.guest[i];
-            if (element.assign_tables === parseInt(table)) {
-                spaceSum = spaceSum + element.n_guest;
-            }
+    constructor(props) {
+        super(props);
+        this.state = {
+            event: props.event,
+            tableEmptySpaces: 0
         }
-        const res = (spaceLimit - spaceSum);
-        return (res);
     }
 
     renderTablesAsigned = () => {
@@ -28,43 +23,22 @@ class AddGuest extends Component {
         return array;
     }
 
-    // componentWillMount() {
-    //     const empty = this.getEmptySpaces(1);
-    //     this.setState({ tableEmptySpaces: empty });
-    // }
-
-    evaluateForm = () => {
-        if (this.state.name.length > 0 && this.state.total > 0 && this.state.tableEmptySpaces > 0) {
-            if (this.evaluateSpaces()) {
-                this.props.flag(true);
-            } else {
-                this.props.flag(false);
-            }
-        } else {
-            this.props.flag(false);
-        }
-    }
-
-    evaluateSpaces = () => {
-        if (this.state.tableEmptySpaces >= this.state.total) {
-            return true;
-        } else { return false; }
-    }
-
     render() {
 
         return (
             <div className="form_create_event">
                 <Form>
                     <FormGroup>
-                        <Label for="eventName">Nombre del Invitado</Label>
+                        <Label for="eventName">Nombre del Invitado </Label>
                         <Input
                             type="text"
                             maxLength="16"
                             name="name"
                             id="eventName"
                             placeholder="Max. 16 caracteres"
-                            onChange={(event) => { this.props.setName(event); }} />
+                            onChange={(event) => {
+                                this.props.setName(event.target.value)
+                            }} />
                     </FormGroup>
                     <Row form>
                         <Col md={6}>
@@ -74,14 +48,16 @@ class AddGuest extends Component {
                                 <Input
                                     placeholder={
                                         'Max. ' +
-
+                                        this.props.empty +
                                         ' personas'}
-                                    max={10}
+                                    max={this.props.empty}
                                     min={1}
                                     type="number"
                                     name="noGuest"
                                     id="noGuest"
-                                    onChange={(event) => { this.props.setTotal(event) }} />
+                                    onChange={(event) => {
+                                        this.props.setTotal(event.target.value)
+                                    }} />
                             </FormGroup>
                         </Col>
                         <Col md={6}>
@@ -89,13 +65,16 @@ class AddGuest extends Component {
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText>
-                                        Disponibles
+                                        {this.props.empty} Disponibles
                                     </InputGroupText>
                                 </InputGroupAddon>
                                 <Input
                                     type="select"
                                     name="table"
-                                    id="table">
+                                    id="table"
+                                    onChange={(event) => {
+                                        this.props.setEmpty(event.target.value)
+                                    }}>
                                     {this.renderTablesAsigned()}
                                 </Input>
                             </InputGroup>

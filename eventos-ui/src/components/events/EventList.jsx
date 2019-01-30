@@ -117,7 +117,7 @@ class EventList extends Component {
                         {/* List of Events */}
                         {this.renderEventList()}
                     </CardBody>
-                    <CardFooter>Footer</CardFooter>
+                    <CardFooter>{this.props.events.length} Eventos Disponibles</CardFooter>
                 </Card>
             </div>
         )
